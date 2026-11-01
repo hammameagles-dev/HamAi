@@ -1,23 +1,3 @@
-مزيان، ولكن مهم بزاف: **الميساج اللي فات ممكن يكون تقطع وما وصلش الكود كامل**.  
-باش ما يخرجش build فيه error، دير دابا هاد الخطوة:
-
-## Step 6 Fix: عاود بدل `MainActivity.kt` كامل
-
-1. دخل لـ GitHub repo `HamAI`
-2. دخل لهاد الملف:
-
-```txt
-app/src/main/java/com/hamai/app/MainActivity.kt
-```
-
-3. ضغط على علامة القلم ✏️ **Edit**
-4. مسح الكود كامل
-5. لصق هاد الكود كامل
-6. دير **Commit changes**
-
----
-
-```kotlin
 package com.hamai.app
 
 import android.content.Context
