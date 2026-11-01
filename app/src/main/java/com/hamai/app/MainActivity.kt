@@ -52,15 +52,28 @@
     }
 }
 
-fun createReply(userText: String): String {
+fun createBotReply(userText: String): String {
     val text = userText.lowercase()
 
     return when {
-        text.contains("salam") -> "Wa 3alaykom salam."
-        text.contains("hello") -> "Hello. How can I help you?"
-        text.contains("apk") -> "If GitHub Actions is green, download APK from Artifacts."
-        text.contains("merci") -> "Bla jmil."
-        text.contains("thanks") -> "You are welcome."
-        else -> "I received: " + userText
+        text.contains("salam") || text.contains("hello") || text.contains("hi") -> {
+            "Salam. Kifach n9der n3awnek?"
+        }
+
+        text.contains("apk") -> {
+            "To build APK, run GitHub Actions. If it is green, download the APK from Artifacts."
+        }
+
+        text.contains("chkon") || text.contains("who") -> {
+            "Ana HamAI, simple chat app built with Kotlin and Jetpack Compose."
+        }
+
+        text.contains("merci") || text.contains("thanks") -> {
+            "Bla jmil."
+        }
+
+        else -> {
+            "Fhemtk. This is a simple version. Later we can add real AI API."
+        }
     }
 }
