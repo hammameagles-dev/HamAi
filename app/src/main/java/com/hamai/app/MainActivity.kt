@@ -1,3 +1,58 @@
+package com.hamai.app
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            HamAiApp()
+        }
+    }
+}
+
+@Composable
+fun HamAiApp() {
+    MaterialTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            ChatScreen()
+        }
+    }
+}
+
+@Composable
+fun ChatScreen() {
+    var inputText by rememberSaveable { mutableStateOf("") }
+    var botMessage by rememberSaveable {
+        mutableStateOf("Salam. Ana HamAI. Kteb lia chi haja.")
+    }
+
+    Column(
+        modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -12,8 +67,6 @@
             style = MaterialTheme.typography.bodyLarge
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
         OutlinedTextField(
             value = inputText,
             onValueChange = { inputText = it },
@@ -25,7 +78,8 @@
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
                 onClick = {
@@ -43,8 +97,7 @@
                 onClick = {
                     inputText = ""
                     botMessage = "Conversation cleared."
-                },
-                modifier = Modifier.padding(start = 8.dp)
+                }
             ) {
                 Text(text = "Clear")
             }
@@ -52,28 +105,16 @@
     }
 }
 
-fun createBotReply(userText: String): String {
+fun createReply(userText: String): String {
     val text = userText.lowercase()
 
     return when {
-        text.contains("salam") || text.contains("hello") || text.contains("hi") -> {
-            "Salam. Kifach n9der n3awnek?"
-        }
-
-        text.contains("apk") -> {
-            "To build APK, run GitHub Actions. If it is green, download the APK from Artifacts."
-        }
-
-        text.contains("chkon") || text.contains("who") -> {
-            "Ana HamAI, simple chat app built with Kotlin and Jetpack Compose."
-        }
-
-        text.contains("merci") || text.contains("thanks") -> {
-            "Bla jmil."
-        }
-
-        else -> {
-            "Fhemtk. This is a simple version. Later we can add real AI API."
-        }
+        text.contains("salam") -> "Wa 3alaykom salam."
+        text.contains("hello") -> "Hello. How can I help you?"
+        text.contains("hi") -> "Hi. How can I help you?"
+        text.contains("apk") -> "If GitHub Actions is green, download APK from Artifacts."
+        text.contains("merci") -> "Bla jmil."
+        text.contains("thanks") -> "You are welcome."
+        else -> "I received: " + userText
     }
 }
