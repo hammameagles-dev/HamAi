@@ -1,8 +1,28 @@
+مزيان، ولكن مهم بزاف: **الميساج اللي فات ممكن يكون تقطع وما وصلش الكود كامل**.  
+باش ما يخرجش build فيه error، دير دابا هاد الخطوة:
+
+## Step 6 Fix: عاود بدل `MainActivity.kt` كامل
+
+1. دخل لـ GitHub repo `HamAI`
+2. دخل لهاد الملف:
+
+```txt
+app/src/main/java/com/hamai/app/MainActivity.kt
+```
+
+3. ضغط على علامة القلم ✏️ **Edit**
+4. مسح الكود كامل
+5. لصق هاد الكود كامل
+6. دير **Commit changes**
+
+---
+
+```kotlin
 package com.hamai.app
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.InputType
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -153,10 +173,7 @@ fun HamAIApp() {
                     onClick = { menuOpen = true },
                     colors = ButtonDefaults.buttonColors(containerColor = card)
                 ) {
-                    Text(
-                        text = selectedModel,
-                        color = Color.White
-                    )
+                    Text(text = selectedModel, color = Color.White)
                 }
 
                 DropdownMenu(
@@ -181,35 +198,4 @@ fun HamAIApp() {
 
             if (error != null) {
                 Text(
-                    text = error ?: "",
-                    color = Color(0xFFFF7777),
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-            }
-
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-            ) {
-                if (messages.isEmpty()) {
-                    item {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 60.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "Sift message باش تبدا مع HamAI",
-                                color = Color(0xFFB8C8B8)
-                            )
-                        }
-                    }
-                }
-
-                items(messages) { msg ->
-                    MessageBubble(
-                        message = msg,
-                        userColor = userBubble,
+                    text = error ?:
